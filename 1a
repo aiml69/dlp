@@ -1,7 +1,7 @@
-importnumpyas np import 
-pandas as pd import 
-seaborn as sns 
-importmatplotlib.pyplotasplt 
+import numpyas np 
+import pandas as pd 
+import seaborn as sns 
+import matplotlib.pyplot as plt 
 fromsklearn.linear_modelimportPerceptron 
  
 df=pd.read_csv('/content/gdrive/MyDrive/ML_lab/placement.csv') 
