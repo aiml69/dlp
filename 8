@@ -1,0 +1,255 @@
+import keras 
+fromkeras.datasetsimportfashion_mnist 
+fromkeras.layersimportDense,Activation,Flatten,Conv2D,MaxPooling2D from 
+keras.modelsimport Sequential 
+fromkeras.regularizersimportl1 
+fromkeras.utilsimportto_categoricalimpo
+rt numpyas np 
+importmatplotlib.pyplotasplt 
+(train_X,train_Y),(test_X,test_Y)=fashion_mnist.load_data() 
+train_X = train_X.reshape(-1, 28,28, 1) 
+test_X=test_X.reshape(-1,28,28,1) 
+ 
+train_X=train_X.astype('float32') 
+test_X = test_X.astype('float32') 
+train_X = train_X / 255 
+test_X=test_X/255 
+ 
+train_Y_one_hot=to_categorical(train_Y) 
+test_Y_one_hot = to_categorical(test_Y) 
+ 
+model=Sequential() 
+ 
+model.add(Conv2D(256,(3,3),input_shape=(28,28,1),kernel_regularizer=l1(0.01))) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(128,(3,3),kernel_regularizer=l1(0.01))) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+
+model.add(Conv2D(64,(3,3),input_shape=(28,28,1), 
+#kernel_regularizer=l1(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(28,(3,3), 
+#kernel_regularizer=l1(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Flatten()) 
+model.add(Dense(64)) 
+ 
+model.add(Dense(10)) 
+model.add(Activation('softmax')) 
+ 
+model.compile(loss=keras.losses.categorical_crossentropy, 
+optimizer=keras.optimizers.Adam(),metrics=['accuracy']) 
+ 
+model.fit(train_X,train_Y_one_hot,epochs=5) 
+ 
+test_loss,test_acc=model.evaluate(test_X,test_Y_one_hot) 
+print('Test loss', test_loss) 
+print('Testaccuracy',test_acc) 
+ 
+predictions = model.predict(test_X) 
+print(np.argmax(np.round(predictions[0]))) 
+ 
+plt.imshow(test_X[0].reshape(28,28),cmap=plt.cm.binary) 
+plt.show() 
+#L2regularizer 
+import keras 
+fromkeras.datasetsimportfashion_mnist 
+fromkeras.layersimportDense,Activation,Flatten,Conv2D,MaxPooling2D from 
+keras.modelsimport Sequential 
+fromkeras.regularizersimportl2 
+fromkeras.utilsimportto_categoricalimpo
+rt numpyas np 
+importmatplotlib.pyplotasplt 
+(train_X,train_Y),(test_X,test_Y)=fashion_mnist.load_data() 
+train_X = train_X.reshape(-1, 28,28, 1) 
+
+test_X=test_X.reshape(-1,28,28,1) 
+ 
+train_X=train_X.astype('float32') 
+test_X = test_X.astype('float32') 
+train_X = train_X / 255 
+test_X=test_X/255 
+ 
+train_Y_one_hot=to_categorical(train_Y) 
+test_Y_one_hot = to_categorical(test_Y) 
+ 
+model=Sequential() 
+ 
+model.add(Conv2D(256,(3,3),input_shape=(28,28,1),kernel_regularizer=l2(0.01))) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(128,(3,3), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(64,(3,3),input_shape=(28,28,1), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(28,(3,3), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Flatten()) 
+model.add(Dense(64)) 
+ 
+model.add(Dense(10)) 
+model.add(Activation('softmax')) 
+ 
+model.compile(loss=keras.losses.categorical_crossentropy,optimizer=keras.optimizers.Ada 
+m(),metrics=['accuracy']) 
+ 
+model.fit(train_X,train_Y_one_hot,epochs=5) 
+ 
+test_loss,test_acc=model.evaluate(test_X,test_Y_one_hot) 
+print('Test loss', test_loss) 
+print('Testaccuracy',test_acc) 
+ 
+
+importkeras 
+fromkeras.datasetsimportfashion_mnist 
+fromkeras.layersimportDense,Activation,Flatten,Conv2D,MaxPooling2D,Dropout from 
+keras.modelsimport Sequential 
+fromkeras.utilsimportto_categoricalimport 
+numpyas np 
+importmatplotlib.pyplotasplt 
+(train_X,train_Y),(test_X,test_Y)=fashion_mnist.load_data() 
+train_X = train_X.reshape(-1, 28,28, 1) 
+test_X=test_X.reshape(-1,28,28,1) 
+ 
+train_X=train_X.astype('float32') 
+test_X = test_X.astype('float32') 
+train_X = train_X / 255 
+test_X=test_X/255 
+ 
+train_Y_one_hot=to_categorical(train_Y) 
+test_Y_one_hot = to_categorical(test_Y) 
+ 
+model=Sequential() 
+ 
+model.add(Conv2D(256,(3,3),input_shape=(28,28,1))) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2)))Dropout(0.20) 
+ 
+model.add(Conv2D(128, (3,3))) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+#Dropout(0.20) 
+ 
+model.add(Conv2D(64,(3,3),input_shape=(28,28,1))) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+#Dropout(0.20) 
+ 
+model.add(Conv2D(28, (3,3))) 
+model.add(Activation('relu')) 
+predictions = model.predict(test_X)
+
+
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+#Dropout(0.20) 
+model.add(Flatten()) 
+model.add(Dense(64)) 
+ 
+model.add(Dense(10)) 
+model.add(Activation('softmax')) 
+ 
+model.compile(loss=keras.losses.categorical_crossentropy, 
+optimizer=keras.optimizers.Adam(),metrics=['accuracy']) 
+ 
+model.fit(train_X,train_Y_one_hot,batch_size=64,epochs=5) 
+ 
+test_loss,test_acc=model.evaluate(test_X,test_Y_one_hot) 
+print('Test loss', test_loss) 
+print('Testaccuracy',test_acc) 
+ 
+predictions = model.predict(test_X) 
+print(np.argmax(np.round(predictions[0]))) 
+ 
+plt.imshow(test_X[0].reshape(28,28),cmap=plt.cm.binary) 
+plt.show() 
+#L2regularizerandDropout import 
+keras 
+fromkeras.datasetsimportfashion_mnist 
+fromkeras.layersimportDense,Activation,Flatten,Conv2D,MaxPooling2D from 
+keras.modelsimport Sequential 
+fromkeras.regularizersimportl2 
+fromkeras.utilsimportto_categoricalimpo
+rt numpyas np 
+importmatplotlib.pyplotasplt 
+(train_X,train_Y),(test_X,test_Y)=fashion_mnist.load_data() 
+train_X = train_X.reshape(-1, 28,28, 1) 
+test_X=test_X.reshape(-1,28,28,1) 
+ 
+train_X=train_X.astype('float32') 
+test_X = test_X.astype('float32') 
+train_X = train_X / 255 
+test_X=test_X/255 
+ 
+train_Y_one_hot=to_categorical(train_Y) 
+test_Y_one_hot = to_categorical(test_Y) 
+
+ 
+model=Sequential() 
+ 
+model.add(Conv2D(256,(3,3),input_shape=(28,28,1),kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+Dropout(0.20) 
+ 
+ 
+model.add(Conv2D(128,(3,3), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(64,(3,3),input_shape=(28,28,1), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Conv2D(28,(3,3), 
+#kernel_regularizer=l2(0.01) 
+)) 
+model.add(Activation('relu')) 
+#model.add(MaxPooling2D(pool_size=(2,2))) 
+ 
+model.add(Flatten()) 
+model.add(Dense(64)) 
+ 
+model.add(Dense(10)) 
+model.add(Activation('softmax')) 
+ 
+model.compile(loss=keras.losses.categorical_crossentropy, 
+optimizer=keras.optimizers.Adam(),metrics=['accuracy']) 
+ 
+model.fit(train_X,train_Y_one_hot,epochs=5) 
+ 
+test_loss,test_acc=model.evaluate(test_X,test_Y_one_hot) 
+print('Test loss', test_loss) 
+print('Testaccuracy',test_acc) 
+ 
+predictions = model.predict(test_X) 
+print(np.argmax(np.round(predictions[0]))) 
+ 
+plt.imshow(test_X[0].reshape(28,28),cmap=plt.cm.binary) 
+plt.show()
