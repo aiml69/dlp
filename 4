@@ -1,0 +1,95 @@
+importtensorflowastf 
+fromtensorflowimportkeras 
+fromkeras.modelsimportSequential from 
+kerasimport Input 
+fromkeras.layersimportDense 
+import pandas as pd 
+importnumpyasnp 
+import sklearn 
+fromsklearn.metricsimportclassification_reportimpo
+rt matplotlib 
+importmatplotlib.pyplotasplt 
+ 
+#Loaddigitsdata 
+(X_train,y_train),(X_test,y_test)=keras.datasets.mnist.load_data() 
+ 
+#Printshapes 
+print("ShapeofX_train:",X_train.shape) 
+print("Shapeofy_train:",y_train.shape) 
+print("Shape of X_test: ",X_test.shape) 
+print("Shape of y_test: ", y_test.shape) 
+ 
+#Displayimagesofthefirst10digitsinthetrainingsetandtheirtruelablesfig, axs = 
+plt.subplots(2, 5, sharey=False, tight_layout=True, figsize=(12,6), 
+facecolor='white') 
+n=0 
+foriinrange(0,2): 
+for j in range(0,5): 
+axs[i,j].matshow(X_train[n]) 
+axs[i,j].set(title=y_train[n]) 
+n=n+1 
+plt.show() 
+ 
+#Reshapeandnormalize(divideby255)inputdata 
+X_train=X_train.reshape(60000,784).astype("float32")/255 
+X_test = X_test.reshape(10000, 784).astype("float32") / 255 
+ 
+#Printshapes 
+print("NewshapeofX_train:",X_train.shape) 
+print("New shape of X_test: ", X_test.shape) 
+ 
+#DesigntheDeepFFNeuralNetworkarchitecture model = 
+Sequential(name="DFF-Model") # Model 
+model.add(Input(shape=(784,),name='Input-Layer'))#InputLayer-needtospecify the 
+shape of inputs 
+R-20 
+ 
+model.add(Dense(128,activation='relu',name='Hidden-Layer-1', 
+kernel_initializer='HeNormal')) 
+model.add(Dense(64,activation='relu',name='Hidden-Layer-2', 
+kernel_initializer='HeNormal')) 
+model.add(Dense(32,activation='relu',name='Hidden-Layer-3', 
+kernel_initializer='HeNormal')) 
+model.add(Dense(10,activation='softmax',name='Output-Layer')) 
+ 
+#Compilekerasmodel 
+model.compile(optimizer='adam', loss='SparseCategoricalCrossentropy', 
+metrics=['Accuracy'],loss_weights=None,weighted_metrics=None,run_eagerly=None, 
+steps_per_execution=None) 
+ 
+#Fitkerasmodelonthedataset 
+model.fit(X_train,y_train,batch_size=10,epochs=5,verbose='auto',callbacks=None, 
+validation_split=0.2, shuffle=True, class_weight=None, sample_weight=None, 
+initial_epoch=0, # Integer, default=0, Epoch at which to start training (useful for 
+resuming a previous training run). 
+steps_per_epoch=None,validation_steps=None,validation_batch_size=None, 
+validation_freq=5, max_queue_size=10, workers=1, use_multiprocessing=False,) 
+ 
+#applythetrainedmodeltomakepredictions # 
+Predict class labels on training data 
+pred_labels_tr=np.array(tf.math.argmax(model.predict(X_train),axis=1)) # 
+Predict class labels on a test data 
+pred_labels_te=np.array(tf.math.argmax(model.predict(X_test),axis=1)) 
+ 
+ 
+#ModelPerformanceSummary 
+print("") 
+print(' Model Summary ') 
+model.summary() 
+print("") 
+ 
+#Printingtheparameters:DeepFeedForwardNeuralNetworkcontainsmorethan100K 
+#print(' Weights and Biases ') 
+#for layer in model_d1.layers: 
+#print("Layer:",layer.name)#printlayername 
+#print("--Kernels(Weights):",layer.get_weights()[0])#kernels(weights) #print("-
+Biases: ", layer.get_weights()[1]) # biases 
+ 
+print("") 
+print('----------EvaluationonTrainingData --------------- ') 
+print(classification_report(y_train, pred_labels_tr)) 
+print("") 
+ 
+print('----------EvaluationonTestData --------------- ') 
+print(classification_report(y_test, pred_labels_te)) 
+print("")
