@@ -1,10 +1,10 @@
-importkeras 
-fromkeras.datasetsimportmnist 
-fromkeras.layersimportDense,Activation,Flatten,Conv2D,MaxPooling2D from 
-keras.modelsimport Sequential 
-fromkeras.utilsimportto_categoricalimport 
-numpyas np 
-importmatplotlib.pyplotasplt 
+import keras 
+fromkeras. datasets import mnist 
+fromkeras. layers import Dense, Activation,Flatten, Conv2D,MaxPooling2D 
+from keras.modelsimport Sequential 
+fromkeras.utilsimportto_categorical
+import numpy as np 
+import matplotlib.pyplot as plt 
 (train_X,train_Y),(test_X,test_Y)=mnist.load_data() 
 train_X = train_X.reshape(-1, 28,28, 1) 
 test_X=test_X.reshape(-1,28,28,1) 
