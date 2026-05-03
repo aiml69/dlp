@@ -1,8 +1,7 @@
-#PerceptrononOr-,And-andXor-eddata import 
-numpyas np 
-importpandasaspd 
-importmatplotlib.pyplotaspltimp
-ort seaborn as sns 
+ import numpy as np 
+import pandas as pd 
+import matplotlib.pyplot as plt
+import seaborn as sns 
 or_data = pd.DataFrame() 
 and_data=pd.DataFrame() 
 xor_data=pd.DataFrame() 
