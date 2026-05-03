@@ -40,9 +40,7 @@ print("New shape of X_test: ", X_test.shape)
  
 #DesigntheDeepFFNeuralNetworkarchitecture model = 
 Sequential(name="DFF-Model") # Model 
-model.add(Input(shape=(784,),name='Input-Layer'))#InputLayer-needtospecify the 
-shape of inputs 
-R-20 
+model.add(Input(shape=(784,),name='Input-Layer'))
  
 model.add(Dense(128,activation='relu',name='Hidden-Layer-1', 
 kernel_initializer='HeNormal')) 
