@@ -1,0 +1,26 @@
+fromnumpyimportexpand_dims 
+from tensorflow.keras.preprocessingimport image 
+#fromkeras.preprocessing.imageimportimg_to_array 
+fromkeras.preprocessing.imageimportImageDataGeneratorfrom 
+matplotlib import pyplot 
+#loadtheimage 
+img=image.load_img('/content/gdrive/MyDrive/data/train/cat.png') # 
+convert to numpy array 
+data=image.img_to_array(img) 
+#expanddimensiontoonesample 
+samples = expand_dims(data, 0) 
+#createimagedataaugmentationgenerator 
+datagen=ImageDataGenerator(width_shift_range=[-100,100]) # 
+prepare iterator 
+it=datagen.flow(samples,batch_size=1) # 
+generate samples and plot 
+foriinrange(9): 
+# define subplot 
+pyplot.subplot(330+1+i) # 
+generate batch of images 
+batch = it.next() 
+#converttounsignedintegersforviewing image = 
+batch[0].astype('uint8') 
+#plotrawpixeldata pyplot.imshow(image) 
+#showthefigure 
+pyplot.show()
