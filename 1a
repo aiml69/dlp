@@ -6,12 +6,12 @@ fromsklearn.linear_modelimportPerceptron
  
 df=pd.read_csv('/content/gdrive/MyDrive/ML_lab/placement.csv') 
 X=df.iloc[:,0:2] 
-y =df.iloc[:,-1] p 
-= Perceptron() 
+y =df.iloc[:,-1]
+p = Perceptron() 
 p.fit(X,y) 
 print(p.coef_) 
 print(p.intercept_) 
 z=p.score(X,y) 
 print("accuracyscoreis",z) 
-from mlxtend.plottingimport 
-plot_decision_regionsplot_decision_regions(X.values,y.values,clf=p)
+from mlxtend.plotting 
+import plot_decision_regionsplot_decision_regions(X.values,y.values,clf=p)
